@@ -27,11 +27,11 @@ window.onload = function()
 
 function gravity()
 {
-  FutureY[0] = ******
+  /*FutureY[0] = INSERT MATH HERE
   if (downCollide())
   {
-    
-  }
+
+  }*/
 }
 
 function fps()
