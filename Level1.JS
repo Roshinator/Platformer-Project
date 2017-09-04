@@ -1,5 +1,5 @@
 var imported = document.createElement('script');
-imported.src = 'SpriteController.js';
+imported.src = 'SpriteControllerRevamped.js';
 document.head.appendChild(imported);
 
 window.setTimeout(window.onload, 1000);
@@ -8,23 +8,34 @@ var frame = 0;
 
 window.onload = function()
 {
-  createSpriteSet(2, 0);
+  newSprite(150, 000, 20, 20, true, true);// player id: 1
+  newSprite(0, 560, 2400, 40, true, false);// ground id: 2
+  newSprite(400, 500, 110, 60, true, false)
+
   canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-  initSprite(0, 200, 200, 20, 20); //Initialize Player
-  initSprite(1, 0, 560, 800, 40); //Initialize ground
 
 	var framesPerSecond = 60;
 	setInterval(function(){
+    moveEverything();
 		drawEverything();
-    gravity();
 	}, 1000/framesPerSecond);
 
-  setInterval(function(){
-    fps();
-  }, 1000);
-}
+  window.addEventListener("keydown",
+		function(evt) {
+			if (evt.keyCode == 39)
+      {
+        //console.log("move right");
+        moveRight(1);
+      }
 
+<<<<<<< HEAD
+      else if (evt.keyCode == 37)
+      {
+        moveLeft(1);
+        //console.log("move left");
+      }
+=======
 function gravity()
 {
   /*FutureY[0] = INSERT MATH HERE
@@ -33,16 +44,32 @@ function gravity()
 
   }*/
 }
+>>>>>>> ed37a2d0045216c6fe9853a005c6d9867cd8d7ae
 
-function fps()
-{
-  if (frame % 60 == 0)
-  {
-    console.log("Stable");
-  }
-  else
-  {
-    console.log("DROPPED FRAME");
-    frame = 0;
-  }
+      else if (evt.keyCode == 32)
+      {
+        //console.log("jump");
+        jump(1);
+      }
+		})
+
+    window.addEventListener("keyup",
+  		function(evt) {
+  			if (evt.keyCode == 39)
+        {
+          //console.log("move right");
+          stop(1);
+        }
+
+        else if (evt.keyCode == 37)
+        {
+          //console.log("move left");
+          stop(1);
+        }
+
+        else if (evt.keyCode == 32)
+        {
+          stopJump(1);
+        }
+  		})
 }
