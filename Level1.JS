@@ -29,22 +29,11 @@ window.onload = function()
         moveRight(1);
       }
 
-<<<<<<< HEAD
       else if (evt.keyCode == 37)
       {
         moveLeft(1);
         //console.log("move left");
       }
-=======
-function gravity()
-{
-  /*FutureY[0] = INSERT MATH HERE
-  if (downCollide())
-  {
-
-  }*/
-}
->>>>>>> ed37a2d0045216c6fe9853a005c6d9867cd8d7ae
 
       else if (evt.keyCode == 32)
       {
