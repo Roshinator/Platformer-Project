@@ -10,7 +10,8 @@ window.onload = function()
 {
   newSprite(150, 000, 20, 20, true, true);// player id: 1
   newSprite(0, 560, 2400, 40, true, false);// ground id: 2
-  newSprite(400, 500, 110, 60, true, false)
+  newSprite(400, 500, 110, 60, true, false);
+  newSprite(600, 300, 500, 10, true, false);
 
   canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -35,7 +36,7 @@ window.onload = function()
         //console.log("move left");
       }
 
-      else if (evt.keyCode == 32)
+      else if (evt.keyCode == 38)
       {
         //console.log("jump");
         jump(1);
@@ -56,9 +57,16 @@ window.onload = function()
           stop(1);
         }
 
-        else if (evt.keyCode == 32)
+        else if (evt.keyCode == 38)
         {
           stopJump(1);
         }
   		})
+    window.addEventListener("keydown",
+  		function(evt) {
+    		if (evt.keyCode == 68)
+        {
+          death();
+        }
+      })
 }

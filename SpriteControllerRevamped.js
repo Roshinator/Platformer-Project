@@ -103,23 +103,22 @@ function collision()
            && sprite[p].rightEdge >= sprite[i].leftEdge
            && ((sprite[p].rightEdge - sprite[p].horizontalVelocity) < (sprite[i].leftEdge - sprite[i].horizontalVelocity))) // right collision
           {
-            sprite[p].horixontalVelocity = 0;
+            //sprite[p].horizontalVelocity = 0;
+            stop(p);
           }
           if (((sprite[p].bottomEdge >= sprite[i].topEdge && sprite[p].bottomEdge <= sprite[i].bottomEdge)
            || (sprite[p].topEdge <= sprite[i].bottomEdge && sprite[p].topEdge >= sprite[i].topEdge))
            && sprite[p].leftEdge <= sprite[i].rightEdge
            && ((sprite[p].leftEdge - sprite[p].horizontalVelocity) > (sprite[i].rightEdge - sprite[i].horizontalVelocity))) // right collision
           {
-            sprite[p].horixontalVelocity = 0;
+            //sprite[p].horizontalVelocity = 0;
+            stop(p);
           }
-          if (sprite[p].yPos > 900)
+          if (p == 1 && sprite[p].yPos > 900)
           {
-            if (confirm("You Died") == true)
-            {
-              location.reload();
-            }
+            death();
           }
-          if (sprite[p].xPos <= 0)
+          if (p == 1 && sprite[p].xPos <= 0)
           {
             sprite[p].horizontalVelocity = 0;
           }
@@ -192,13 +191,14 @@ function stop(player)
       {
         if (player != i)
         {
+          sprite[i].horizontalVeocity = 0;
           if (sprite[i].horizontalVelocity < 0)
           {
-            sprite[i].horizontalVelocity += 5;
+            sprite[i].horizontalVelocity = 0;//+= 5;
           }
           else
           {
-            sprite[i].horizontalVelocity -= 5;
+            sprite[i].horizontalVelocity = 0;//-= 5;
           }
         }
       }
@@ -227,4 +227,18 @@ function colorRect(leftX, topY, width, height, drawColor)
 {
 	canvasContext.fillStyle = drawColor;
 	canvasContext.fillRect(leftX, topY, width, height);
+}
+
+function death()
+{
+  swal({
+    title: "You Died",
+    text: "Get ready to try again!",
+    type: "error",
+    timer: 3000,
+    showConfirmButton: false
+  },
+  function(){
+    location.reload();
+  });
 }
