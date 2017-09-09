@@ -1,6 +1,6 @@
 var sprite = [0];
 
-function newSprite(x, y, width, height, collides, gravity)
+function newSprite(x, y, width, height, collides, gravity, enemy, color)
 {
   console.log("Sprite " + (sprite.length) + " created.");
   var newSprite = {
@@ -18,17 +18,19 @@ function newSprite(x, y, width, height, collides, gravity)
     gravityEnabled: gravity,
     horizontalVelocity: 0,
     verticalVelocity: 0,
-    inJump: false };
+    inJump: false,
+    enemy: enemy,
+    color: color };
   sprite.push(newSprite);
 }
 
 function drawEverything()
 {
-  colorRect(0,0,canvas.width,canvas.height, 'black');
+  colorRect(0,0,canvas.width,canvas.height, 'white');
 
     for (var i = sprite.length - 1; i >= 1; i--)
     {
-      colorRect(sprite[i].xPos, sprite[i].yPos, sprite[i].width, sprite[i].height, 'red');
+      colorRect(sprite[i].xPos, sprite[i].yPos, sprite[i].width, sprite[i].height, sprite[i].color);
     }
 }
 
@@ -63,7 +65,7 @@ function calculateEdges()
     //down edge
     sprite[i].bottomEdge = sprite[i].height + sprite[i].yFuture;
     //top edge
-    sprite[i].topEdge = sprite[i].yFuture; //TODO Might be just y future without the ypos. Same goes for the x ones
+    sprite[i].topEdge = sprite[i].yFuture;
     // left edge
     sprite[i].leftEdge = sprite[i].xFuture;
     //right edge
@@ -90,6 +92,10 @@ function collision()
           {
             sprite[p].verticalVelocity = 0;//sprite[p].bottomEdge - sprite[i].topEdge;
             sprite[p].inJump = false;
+            if (sprite[i].enemy)
+            {
+              death();
+            }
           }
           if (((sprite[p].rightEdge >= sprite[i].leftEdge && sprite[p].rightEdge <= sprite[i].rightEdge)
            || (sprite[p].leftEdge <= sprite[i].rightEdge && sprite[p].leftEdge >= sprite[i].leftEdge))
@@ -97,6 +103,10 @@ function collision()
            && ((sprite[p].topEdge - sprite[p].verticalVelocity) > (sprite[i].bottomEdge - sprite[i].verticalVelocity)))  // downward collision
           {
             sprite[p].verticalVelocity = 0;
+            if (sprite[i].enemy)
+            {
+              death();
+            }
           }
           if (((sprite[p].bottomEdge >= sprite[i].topEdge && sprite[p].bottomEdge <= sprite[i].bottomEdge)
            || (sprite[p].topEdge <= sprite[i].bottomEdge && sprite[p].topEdge >= sprite[i].topEdge))
@@ -105,6 +115,10 @@ function collision()
           {
             //sprite[p].horizontalVelocity = 0;
             stop(p);
+            if (sprite[i].enemy)
+            {
+              death();
+            }
           }
           if (((sprite[p].bottomEdge >= sprite[i].topEdge && sprite[p].bottomEdge <= sprite[i].bottomEdge)
            || (sprite[p].topEdge <= sprite[i].bottomEdge && sprite[p].topEdge >= sprite[i].topEdge))
@@ -113,8 +127,12 @@ function collision()
           {
             //sprite[p].horizontalVelocity = 0;
             stop(p);
+            if (sprite[i].enemy)
+            {
+              death();
+            }
           }
-          if (p == 1 && sprite[p].yPos > 900)
+          if (p == 1 && sprite[p].yPos > 900 )
           {
             death();
           }

@@ -8,13 +8,21 @@ var frame = 0;
 
 window.onload = function()
 {
-  newSprite(150, 000, 20, 20, true, true);// player id: 1
-  newSprite(0, 560, 2400, 40, true, false);// ground id: 2
-  newSprite(400, 500, 110, 60, true, false);
-  newSprite(600, 300, 500, 10, true, false);
+  newSprite(140, 000, 20, 20, true, true, false, 'green');// player id: 1
+  newSprite(0, 560, 1356, 40, true, false, false, 'brown');// ground id: 2
+  newSprite(1598, 560, 802, 40, true, false, false, 'brown');
+  newSprite(400, 500, 110, 60, true, false, false, 'brown');
+  newSprite(600, 300, 500, 10, true, false, false, 'brown');
+  newSprite(800, 200, 458, 30, true, false, false, 'brown');
+  newSprite(1256, 700, 100, 15, true, false, false, 'brown');
+  newSprite(1598, 323, 832, 38, true, false, false, 'brown');
+  newSprite(0, 560, 1356, 40, true, false, false, 'brown');
+  newSprite(Math.random() * 2400, Math.random() * 600, Math.random() * 240, Math.random() * 60, true, false, true, 'blue');
 
   canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+  canvas.width = window.innerWidth - 25;
+  canvas.height = window.innerHeight - 25;
 
 	var framesPerSecond = 60;
 	setInterval(function(){
@@ -68,5 +76,11 @@ window.onload = function()
         {
           death();
         }
+      })
+
+    window.addEventListener("resize",
+      function(evt) {
+        canvas.width = window.innerWidth - 25;
+        canvas.height = window.innerHeight - 25;
       })
 }
